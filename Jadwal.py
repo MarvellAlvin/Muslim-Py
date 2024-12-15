@@ -1,4 +1,5 @@
 import requests
+import datetime
 
 # Fungsi untuk mendapatkan daftar kode kota
 def get_kode_kota(nama_kota):
@@ -60,11 +61,17 @@ def get_jadwal_sholat(kode_kota, tanggal):
 def main():
     print("===== Jadwal Sholat Harian =====")
     nama_kota = input("Masukkan nama kota: ")
-    tanggal = input("Masukkan tanggal (format yyyy-mm-dd): ")
+
+    # Menanyakan apakah pengguna ingin menggunakan tanggal hari ini
+    pilih_tanggal = input("Gunakan tanggal hari ini? (y/n): ").lower()
+    
+    if pilih_tanggal == 'y':
+        tanggal = datetime.datetime.today().strftime('%Y-%m-%d')  # Mendapatkan tanggal hari ini
+    else:
+        tanggal = input("Masukkan tanggal (format yyyy-mm-dd): ")
 
     # Validasi format tanggal
     try:
-        import datetime
         datetime.datetime.strptime(tanggal, "%Y-%m-%d")
     except ValueError:
         print("Format tanggal tidak valid. Gunakan format yyyy-mm-dd.")
